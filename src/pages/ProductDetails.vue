@@ -11,21 +11,26 @@
 
 <script>
 import { inject, computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default {
   props: ['pid'],
-  setup(props) {
-    console.log('productDetails', props.pid);
+  // setup(props) {
+  setup() {
     const products = inject('products');
 
-    // const title = ref('');
-    // const price = ref(null);
-    // const description = ref('');
-
+    const route = useRoute();
+    console.log('productDetails', route);
+    //useRoute
     const selectedProduct = computed(() =>
-      products.value.find(prd => prd.id === props.pid)
+      products.value.find(prd => prd.id === route.params.pid)
     );
-    // console.log('selectedProduct', selectedProduct.value);
+
+    // use props
+    // const selectedProduct = computed(() =>
+    //   products.value.find(prd => prd.id === props.pid)
+    // );
+
     const title = computed(() => selectedProduct.value.title);
     const price = computed(() => selectedProduct.value.price);
     const description = computed(() => selectedProduct.value.description);
